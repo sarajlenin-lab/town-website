@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Link from "next/link";
+import { CartContext } from "../context/CartContext";
 
 export default function Products() {
-  const [cart, setCart] = useState([]);
+  const { cart, addToCart } = useContext(CartContext);
 
   const products = [
     { id: 1, name: "Sample Item 1", price: 50 },
     { id: 2, name: "Sample Item 2", price: 80 }
   ];
-
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-    alert(product.name + " added to cart");
-  };
 
   return (
     <div style={{ padding: 20 }}>
@@ -22,7 +18,9 @@ export default function Products() {
         <div key={item.id} style={{ marginBottom: 20 }}>
           <h3>{item.name}</h3>
           <p>Price: AED {item.price}</p>
-          <button onClick={() => addToCart(item)}>Add to Cart</button>
+          <button onClick={() => addToCart(item)}>
+            Add to Cart
+          </button>
         </div>
       ))}
 
