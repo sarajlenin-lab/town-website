@@ -1,11 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function Cart() {
-  const [cart, setCart] = useState([
-    { id: 1, name: "Sample Item 1", price: 50 },
-    { id: 2, name: "Sample Item 2", price: 80 }
-  ]);
-
+  const { cart } = useContext(CartContext);
   const [address, setAddress] = useState("");
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -13,6 +10,8 @@ export default function Cart() {
   return (
     <div style={{ padding: 20 }}>
       <h1>Your Cart 🛒</h1>
+
+      {cart.length === 0 && <p>No items in cart</p>}
 
       {cart.map((item, index) => (
         <div key={index}>
@@ -32,7 +31,7 @@ export default function Cart() {
 
       <br /><br />
 
-      <button onClick={() => alert("Order Placed!")}>
+      <button onClick={() => alert("Order Placed Successfully!")}>
         Checkout
       </button>
     </div>
